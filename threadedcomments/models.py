@@ -3,7 +3,7 @@ from django.db import models, transaction
 from django.utils.translation import gettext_lazy as _
 from django_comments.managers import CommentManager
 from django_comments.models import Comment
-from wagtail.admin.panels import MultiFieldPanel, FieldPanel, HelpPanel
+from wagtail.admin.panels import MultiFieldPanel, FieldRowPanel, FieldPanel, HelpPanel
 
 PATH_SEPARATOR = getattr(settings, 'COMMENT_PATH_SEPARATOR', '/')
 PATH_DIGITS = getattr(settings, 'COMMENT_PATH_DIGITS', 10)
@@ -19,16 +19,23 @@ class ThreadedComment(Comment):
 
     panels = [
         MultiFieldPanel([
-            HelpPanel(template="help_panel.html", heading=_("Content object")),
-            FieldPanel('submit_date'),
-            FieldPanel('ip_address'),
+            FieldRowPanel([
+                FieldPanel('user'),
+                FieldPanel('parent'),
+            ]),
+            FieldPanel('comment'),
         ], heading=_("Info")),
         MultiFieldPanel([
+            HelpPanel(template="help_panel.html", heading=_("Content object")),
+            FieldRowPanel([
+                FieldPanel('submit_date'),
+                FieldPanel('ip_address'),
+            ])
+        ], heading=_("Metadata")),
+        FieldRowPanel([
             FieldPanel('is_public'),
             FieldPanel('is_removed'),
         ], heading=_("Visibility")),
-        FieldPanel('user'),
-        FieldPanel('comment'),
     ]
 
     @property
