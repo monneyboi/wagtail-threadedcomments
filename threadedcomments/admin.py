@@ -1,30 +1,22 @@
-from django.contrib import admin
+
+from threadedcomments.models import ThreadedComment
 from django.utils.translation import gettext_lazy as _
-from django_comments.admin import CommentsAdmin
 
-from .models import ThreadedComment
+from wagtail.contrib.modeladmin.options import (
+    ModelAdmin,
+    modeladmin_register,
+)
 
-
-class ThreadedCommentsAdmin(CommentsAdmin):
-    fieldsets = (
-        (None,
-         {'fields': ('content_type', 'object_pk', 'site')}
-         ),
-        (_('Content'),
-         {'fields': ('user', 'user_name', 'user_email', 'user_url', 'title', 'comment')}
-         ),
-        (_('Hierarchy'),
-         {'fields': ('parent',)}
-         ),
-        (_('Metadata'),
-         {'fields': ('submit_date', 'ip_address', 'is_public', 'is_removed')}
-         ),
+class CommentAdmin(ModelAdmin):
+    model = ThreadedComment
+    menu_label = _("Comments")
+    menu_icon = "comment"  # change as required
+    menu_order = 300  # will put in 3rd place (000 being 1st, 100 2nd)
+    list_display = (
+        'comment',
+        'user',
     )
-
-    list_display = ('name', 'title', 'content_type', 'object_pk', 'parent',
-                    'ip_address', 'submit_date', 'is_public', 'is_removed')
-    search_fields = ('title', 'comment', 'user__username', 'user_name',
-                     'user_email', 'user_url', 'ip_address')
-    raw_id_fields = ("parent",)
-
-admin.site.register(ThreadedComment, ThreadedCommentsAdmin)
+    
+# When using a ModelAdminGroup class to group several ModelAdmin classes together,
+# you only need to register the ModelAdminGroup class with Wagtail:
+modeladmin_register(CommentAdmin)
