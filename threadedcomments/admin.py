@@ -14,6 +14,7 @@ class CommentAdmin(ModelAdmin):
     menu_order = 300  # will put in 3rd place (000 being 1st, 100 2nd)
     list_display = (
         'comment',
+        'content_object',
         'user',
     )
     

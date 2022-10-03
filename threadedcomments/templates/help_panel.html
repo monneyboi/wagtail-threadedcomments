@@ -1,0 +1,17 @@
+
+{% load wagtailcore_tags %}
+
+<fieldset>
+    {% if self.heading %}
+        <legend class="w-sr-only">{{ self.heading }}</legend>
+    {% endif %}
+    <div class="{{ self.classname }}">
+        {{ self.content|safe }}
+
+        <p>
+            <a target="_blank" href="{{ self.instance.content_object.get_full_url }}">
+                <strong>{{ self.instance.content_object }}</strong>
+            </a>
+        </p>
+    </div>
+</fieldset>
