@@ -3,19 +3,32 @@ from django.db import models, transaction
 from django.utils.translation import gettext_lazy as _
 from django_comments.managers import CommentManager
 from django_comments.models import Comment
+from wagtail.admin.panels import MultiFieldPanel, FieldPanel
 
 PATH_SEPARATOR = getattr(settings, 'COMMENT_PATH_SEPARATOR', '/')
 PATH_DIGITS = getattr(settings, 'COMMENT_PATH_DIGITS', 10)
 
 
 class ThreadedComment(Comment):
-    title = models.TextField(_('Title'), blank=True)
     parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, default=None, related_name='children', verbose_name=_('Parent'))
     last_child = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, verbose_name=_('Last child'))
     tree_path = models.CharField(_('Tree path'), max_length=500, editable=False)
     newest_activity = models.DateTimeField(null=True)
 
     objects = CommentManager()
+
+    panels = [
+        MultiFieldPanel([
+            FieldPanel('submit_date'),
+            FieldPanel('ip_address'),
+        ], heading=_("Info")),
+        MultiFieldPanel([
+            FieldPanel('is_public'),
+            FieldPanel('is_removed'),
+        ], heading=_("Visibility")),
+        FieldPanel('user'),
+        FieldPanel('comment'),
+    ]
 
     @property
     def depth(self):
