@@ -34,7 +34,7 @@ def find_version(*parts):
 
 
 setup(
-    name='django-threadedcomments',
+    name='wagtail-threadedcomments',
     version=find_version('threadedcomments', '__init__.py'),
     license='BSD',
     install_requires=[
@@ -44,7 +44,7 @@ setup(
 
     description='A simple yet flexible threaded commenting system.',
     long_description=read('README.rst'),
-    keywords='django,comments,threading',
+    keywords='wagtail,django,comments,threading',
 
     author='Eric Florenzano',
     author_email='floguy@gmail.com',
@@ -52,8 +52,8 @@ setup(
     maintainer='Diederik van der Boor',
     maintainer_email='vdboor@edoburu.nl',
 
-    url='https://github.com/HonzaKral/django-threadedcomments',
-    download_url='https://github.com/HonzaKral/django-threadedcomments/zipball/master',
+    url='https://github.com/monneyboi/wagtail-threadedcomments',
+    download_url='https://github.com/monneyboi/wagtail-threadedcomments/zipball/master',
 
     packages=find_packages(exclude=('example*',)),
     include_package_data=True,
