@@ -16,6 +16,7 @@ class CommentAdmin(ModelAdmin):
         'comment',
         'content_object',
         'user',
+        'flags',
     )
     
 # When using a ModelAdminGroup class to group several ModelAdmin classes together,
