@@ -10,7 +10,6 @@ INSERT INTO threadedcomments_comment (
     parent_id, 
     last_child_id, 
     tree_path,
-    title
 ) 
 SELECT id as comment_ptr_id, 
        null as parent_id, 
