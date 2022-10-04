@@ -39,7 +39,6 @@ setup(
     license='BSD',
     install_requires=[
         'django-contrib-comments>=1.9.0',
-        'wagtail>=4.0.2',
     ],
 
     description='A simple yet flexible threaded commenting system.',
