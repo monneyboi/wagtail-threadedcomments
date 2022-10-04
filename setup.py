@@ -54,7 +54,7 @@ setup(
     url='https://github.com/monneyboi/wagtail-threadedcomments',
     download_url='https://github.com/monneyboi/wagtail-threadedcomments/zipball/master',
 
-    packages=find_packages(exclude=('example*',)),
+    packages=find_packages(),
     include_package_data=True,
 
     test_suite = 'runtests',
